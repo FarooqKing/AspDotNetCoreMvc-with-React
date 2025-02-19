@@ -1,7 +1,9 @@
 
 import { useState } from "react";
-import { useNavigate } from "react-router-dom"
-function Login() {
+import { useNavigate, Link } from "react-router-dom"
+import PropTypes from "prop-types";
+
+function Login({ setIsAuthenticated }) {
 
     const token = localStorage.getItem("token");
     console.log(token)
@@ -33,6 +35,7 @@ function Login() {
             });
             const result = await response.json();
             localStorage.setItem("token", result.token);
+            setIsAuthenticated(true);
             console.log("Token:", result.token);
             console.log("Login successFully:", result);
         } catch (error) {
@@ -43,7 +46,7 @@ function Login() {
 
     return (
         <div className="container d-flex justify-content-center mt-5">
-            <div className="w-50">
+            <div className="w-40 mt-5">
             <div className="card">
             <div className="card-body">
             <form onSubmit={submitHandler}>
@@ -54,14 +57,18 @@ function Login() {
                 <div className="mb-3">
                     <label htmlFor="exampleInputPassword1" className="form-label">Password</label>
                     <input type="password" name="password" value={formData.password} onChange={handleInput} className="form-control" id="exampleInputPassword1" />
-                </div>
-                <button type="submit" className="btn btn-primary">Submit</button>
-            </form>
+                            </div>
+                            <div className="mb-3 mt-3"><button type="submit" className="btn btn-primary">Submit</button></div>
+                        </form>
+                        <div className="mt-3">
+                            Don`t Have Account  <Link to="/register">Register</Link></div>
         </div>
             </div>
             </div>
             </div>
     )
 }
-
+Login.propTypes = {
+    setIsAuthenticated: PropTypes.func.isRequired
+};
 export default Login;

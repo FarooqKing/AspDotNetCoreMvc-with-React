@@ -31,7 +31,7 @@ namespace Product.Server.Controllers
         }
 
         // GET: api/Products/5
-        [HttpGet("GetProducts/{id}")]
+        [HttpGet("GetProduct/{id}")]
         public async Task<ActionResult<Products>> GetProducts(int id)
         {
             var products = await _context.products.FindAsync(id);
@@ -45,13 +45,13 @@ namespace Product.Server.Controllers
         }
 
         // PUT: api/Products/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+     
         [HttpPut("UpdateProducts/{id}")]
         public async Task<IActionResult> UpdateProducts(int id, Products products)
         {
             if (id != products.Id)
             {
-                return BadRequest();
+                return BadRequest(new { message = "Product ID mismatch" });
             }
 
             _context.Entry(products).State = EntityState.Modified;
@@ -64,7 +64,7 @@ namespace Product.Server.Controllers
             {
                 if (!ProductsExists(id))
                 {
-                    return NotFound();
+                    return NotFound(new { message = "Product not found" });
                 }
                 else
                 {
@@ -72,8 +72,9 @@ namespace Product.Server.Controllers
                 }
             }
 
-            return NoContent();
+            return Ok(new { message = "Product updated successfully" });
         }
+
 
         // POST: api/Products
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754

@@ -21,11 +21,13 @@ function CreateProduct() {
     const submitHandler = async (event) => {
         event.preventDefault();
         try {
+            const token = localStorage.getItem("token");
             const response = await fetch("https://localhost:7030/api/Products/CreateProducts", {
                 method: "POST",
                 headers: {
                     "Accept": "application/json",
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
                 },
                 body: JSON.stringify(formData),
             });

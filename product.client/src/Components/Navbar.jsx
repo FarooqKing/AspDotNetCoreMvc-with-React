@@ -1,9 +1,7 @@
 import { Link } from "react-router-dom";
 
 function Navbar() {
-    const user = localStorage.getItem("token");
-
-    if (!user) return null;
+   
   return (
       <>
           <nav className="navbar navbar-expand-lg navbar-light bg-light">

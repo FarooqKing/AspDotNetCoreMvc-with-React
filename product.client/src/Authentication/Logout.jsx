@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
-
-function Logout() {
+import PropTypes from "prop-types";
+function Logout({ setIsAuthenticated }) {
     const redirect = useNavigate();
 
     // Call backend logout API
@@ -19,7 +19,7 @@ function Logout() {
 
             // Clear token from local storage
             localStorage.removeItem("token");
-
+            setIsAuthenticated(false);
             // Redirect user to the login page
             redirect("/");
         } catch (error) {
@@ -37,4 +37,9 @@ function Logout() {
     );
 }
 
+Logout.propTypes = {
+    setIsAuthenticated: PropTypes.func.isRequired
+};
 export default Logout;
+
+
