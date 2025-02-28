@@ -55,6 +55,7 @@ var app = builder.Build();
 app.UseDefaultFiles();
 app.MapStaticAssets();
 
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
